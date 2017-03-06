@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Shit Map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta charset="utf-8"/>
+    
+  </head>
+  <body>
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	
+	<script>
+	
+	<!--ajax can only request xml and json data -->
+    <!--from the other server, but not the other type of data-->
+	<!--BUT AJAX CAN REQUEST ANYTHING FROM MY SERVER-->
+	 
+	    $.ajax({	
+		    type: "GET",
+			url: "https://maps.googleapis.com/maps/api/geocode/xml?address=Winnetka&key=AIzaSyD23bJAevHqI99IcZtle6XVNxf4NyW74DI",
+			dataType: "xml",
+			success: processXML
+		});
+
+        function processXML(xml) {
+		
+		    //alert(xml); /*JavaScript see xml as */
+			              /*an Object, but not a String*/
+						  
+			$(xml).find("address_component").each(function() { /*look into the xml object, find the line with address_component and LOOP through each of them*/
+		
+		        //alert($(this).find("type").text()); /*alert the text in each of the component tag*/
+				
+				if ($(this).find("type").text() == "countrypolitical") { /*if 2 type lines consecutive => have to input their combination content*/
+				
+				    alert($(this).find("long_name").text());
+				    //alert("ok");
+				
+				}
+		
+		    });
+		
+		}		
+			
+		
+	</script>
+	
+  </body>
+</html>
+
+
+
